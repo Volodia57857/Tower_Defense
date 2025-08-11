@@ -16,3 +16,5 @@ MonoBehaviour:
   Sound: Sound
   Credits: Credits
   Badges: Badges
+  Loading: Loading...
+  Done: Done!
