@@ -1,27 +1,39 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyControlerScript : MonoBehaviour
+public class EnemyBaseControler : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent NavMeshAgent;
-    [SerializeField] private int HP;
-    [SerializeField] private int Damage;
-    [SerializeField] private int PriceForKill;
-    [SerializeField] private Animator animator;
+    [SerializeField] protected NavMeshAgent NavMeshAgent;
+    [SerializeField] protected int HP;
+    [SerializeField] protected int Damage;
+    [SerializeField] protected int PriceForKill;
+    [SerializeField] protected Animator animator;
 
-    private Vector3 targetPosition = new Vector3(20, 0, 11);
-    private float stopDistance = 1f;
+    [SerializeField] protected Transform targetObject;
+    protected Vector3 targetPosition;
 
-    void Start()
+    protected float stopDistance = 1f;
+
+    protected virtual void Awake()
     {
-        // Притискаємо ворога до NavMesh
+        // Автопризначення компонентів
+        if (NavMeshAgent == null)
+            NavMeshAgent = GetComponent<NavMeshAgent>();
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
+    }
+
+    protected virtual void Start()
+    {
         NavMeshHit hit;
         if (NavMesh.SamplePosition(transform.position, out hit, 2f, NavMesh.AllAreas))
         {
             transform.position = hit.position;
         }
 
-        
+        if (targetObject != null)
+            targetPosition = targetObject.position;
 
         if (NavMeshAgent != null && NavMeshAgent.isOnNavMesh)
         {
@@ -30,9 +42,8 @@ public class EnemyControlerScript : MonoBehaviour
         }
     }
 
-    void Update()
+    protected virtual void Update()
     {
-        // Поворот ворога у напрямку руху
         Vector3 direction = NavMeshAgent.velocity.normalized;
         if (direction != Vector3.zero)
         {
@@ -40,18 +51,16 @@ public class EnemyControlerScript : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, NavMeshAgent.angularSpeed * Time.deltaTime);
         }
 
-        
         if (NavMeshAgent.isOnNavMesh &&
             !NavMeshAgent.pathPending &&
             NavMeshAgent.hasPath &&
             NavMeshAgent.remainingDistance <= stopDistance)
         {
-            //EnemySurvived();
-            Die();
+            EnemySurvived();
         }
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         HP -= damage;
         if (HP <= 0)
@@ -59,19 +68,18 @@ public class EnemyControlerScript : MonoBehaviour
             Die();
         }
     }
-    /*public void Attack(GameObject target)
+
+    public virtual void Attack(GameObject target)
     {
         if (target != null)
         {
-            //  логіка атаки
-            
-            target.GetComponent<Health>().TakeDamage(Damage);
+            //target.GetComponent<Health>().TakeDamage(Damage);
         }
-    }*/
-    private void Die()
+    }
+
+    protected virtual void Die()
     {
         if (NavMeshAgent != null) NavMeshAgent.isStopped = true;
-
 
         if (animator != null)
         {
@@ -81,7 +89,7 @@ public class EnemyControlerScript : MonoBehaviour
         Destroy(gameObject, 4f);
     }
 
-    public void EnemySurvived()
+    protected virtual void EnemySurvived()
     {
         Destroy(gameObject);
     }
