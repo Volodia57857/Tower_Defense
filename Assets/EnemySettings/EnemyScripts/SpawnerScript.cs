@@ -4,13 +4,13 @@ using System.Collections;
 public class SpawnerScript : MonoBehaviour
 {
     [SerializeField]
-    private GameObject enemyPrefab;  // Префаб ворога
+    private GameObject enemyPrefab;  
     [SerializeField]
-    private Transform spawnPoint;    // Точка спавну
+    private Transform spawnPoint;    
     [SerializeField]
-    private float spawnInterval = 2f; // Інтервал між спавнами (секунди)
+    private float spawnInterval = 2f; 
     [SerializeField]
-    private int enemyCount = 5;       // Скільки ворогів створити
+    private int enemyCount = 5;       
 
     void Start()
     {
