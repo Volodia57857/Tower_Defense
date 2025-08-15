@@ -15,4 +15,8 @@ MonoBehaviour:
   Language: "J\u0119zyk"
   Sound: "D\u017Awi\u0119k"
   Credits: Autorzy
-  Badges: Odznaki
+  TheCredits: "Gr\u0119 stworzyli: Arcenii, Stepan, Wo\u0142odymyr, Matvii, Muxailo,
+    Dmutrii UI stworzy\u0142: Wo\u0142odymyr Modele postaci stworzy\u0142: Muxailo
+    Animacje postaci zrobi\u0142: Muxailo Mapy poziom\xF3w stworzy\u0142: Stepan
+    Wie\u017Ce stworzyli: Matvii, Dmutrii Dzi\u0119kujemy za gr\u0119!"
+  Level: Poziom

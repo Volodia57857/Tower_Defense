@@ -15,4 +15,9 @@ MonoBehaviour:
   Language: Langue
   Sound: Son
   Credits: Auteurs
-  Badges: Insignes
+  TheCredits: "Jeu cr\xE9\xE9 par : Arcenii, Stepan, Volodymyr, Matvii, Muxailo,
+    Dmutrii Interface r\xE9alis\xE9 par : Volodymyr Mod\xE8les des personnages cr\xE9\xE9s
+    par : Muxailo Animations des personnages r\xE9alis\xE9es par : Muxailo Cartes
+    des niveaux cr\xE9\xE9es par : Stepan Tours cr\xE9\xE9es par : Matvii, Dmutrii
+    Merci pour le jeu !"
+  Level: Niveau

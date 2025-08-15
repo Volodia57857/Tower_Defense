@@ -6,5 +6,6 @@ public class LanguageManagerV1 : ScriptableObject
     public string Language;
     public string Sound;
     public string Credits;
-    public string Badges;
+    public string TheCredits;
+    public string Level;
 }
