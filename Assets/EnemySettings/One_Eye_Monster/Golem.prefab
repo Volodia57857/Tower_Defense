@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6248472447449181951}
   - component: {fileID: 7489008512143544147}
   - component: {fileID: 6389511248549492380}
+  - component: {fileID: 5236274070896805138}
   m_Layer: 0
   m_Name: Golem
   m_TagString: Untagged
@@ -27,15 +28,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 30260155344875564}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.25280386, z: -0, w: 0.9675176}
-  m_LocalPosition: {x: 70.58485, y: 2.9121304, z: 2.2355027}
+  m_LocalRotation: {x: -0, y: -0.014540379, z: -0, w: 0.9998943}
+  m_LocalPosition: {x: 79.37, y: 2.9121304, z: 15.94}
   m_LocalScale: {x: 2.14, y: 2.14, z: 2.14}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3676631805152904847}
   - {fileID: 2741134570973499017}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 29.287, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -1.666, z: 0}
 --- !u!114 &6248472447449181951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,6 +54,7 @@ MonoBehaviour:
   Damage: 10
   PriceForKill: 15
   animator: {fileID: 6389511248549492380}
+  targetObject: {fileID: 0}
 --- !u!195 &7489008512143544147
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -97,6 +99,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5236274070896805138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30260155344875564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0727f52fe0aa50749a174526861096af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NavMeshAgent: {fileID: 0}
+  HP: 0
+  Damage: 0
+  PriceForKill: 0
+  animator: {fileID: 0}
+  targetObject: {fileID: 0}
 --- !u!1 &35338279066992870
 GameObject:
   m_ObjectHideFlags: 0

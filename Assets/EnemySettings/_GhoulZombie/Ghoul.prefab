@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 5146719642019766893}
   - component: {fileID: 516435385901922989}
   - component: {fileID: 8069584621541434797}
+  - component: {fileID: 8305488709329129127}
   m_Layer: 0
   m_Name: Ghoul
   m_TagString: Untagged
@@ -281,8 +282,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703096123932702888}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.13111503, z: -0, w: 0.9913672}
-  m_LocalPosition: {x: 77.59331, y: 2.91, z: 1.2594613}
+  m_LocalRotation: {x: -0, y: 0.04355944, z: -0, w: 0.99905086}
+  m_LocalPosition: {x: 75.45, y: 2.91, z: 15.52}
   m_LocalScale: {x: 1.3280555, y: 1.2673558, z: 1.3545787}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -292,7 +293,7 @@ Transform:
   - {fileID: 8670856167609495133}
   - {fileID: 4402364716564711426}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -15.068, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 4.993, z: 0}
 --- !u!114 &5146719642019766893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,7 +301,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703096123932702888}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6d28eea953502b40921f4a857935ba0, type: 3}
   m_Name: 
@@ -310,6 +311,7 @@ MonoBehaviour:
   Damage: 3
   PriceForKill: 3
   animator: {fileID: 8069584621541434797}
+  targetObject: {fileID: 0}
 --- !u!195 &516435385901922989
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -354,6 +356,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8305488709329129127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703096123932702888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d468ffba0859364cbebd1d1ac3d8d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NavMeshAgent: {fileID: 0}
+  HP: 0
+  Damage: 0
+  PriceForKill: 0
+  animator: {fileID: 0}
+  targetObject: {fileID: 0}
 --- !u!1 &824223838844458712
 GameObject:
   m_ObjectHideFlags: 0

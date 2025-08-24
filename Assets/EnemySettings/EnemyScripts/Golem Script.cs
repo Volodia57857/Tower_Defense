@@ -14,4 +14,9 @@ public class GolemScript : EnemyBaseControler
     {
         base.Die();
     }
+    protected override void Start()
+    {
+        base.Start();
+
+    }
 }

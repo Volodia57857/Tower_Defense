@@ -3,29 +3,53 @@ using UnityEngine.AI;
 
 public class EnemyBaseControler : MonoBehaviour
 {
+    [Header("Enemy Settings")]
     [SerializeField] protected NavMeshAgent NavMeshAgent;
     [SerializeField] protected int HP;
     [SerializeField] protected int Damage;
     [SerializeField] protected int PriceForKill;
     [SerializeField] protected Animator animator;
 
+    [Header("Audio Clips")]
+    [SerializeField] protected AudioClip spawnSound;
+    [SerializeField] protected AudioClip attackSound;
+    [SerializeField] protected AudioClip hurtSound;
+    [SerializeField] protected AudioClip deathSound;
+
+    protected AudioSource audioSource;
+
+    [Header("Target")]
     [SerializeField] protected Transform targetObject;
     protected Vector3 targetPosition;
-
     protected float stopDistance = 1f;
+
+    //[Header("HealthBar")]
+    //[SerializeField] private HealthBar healthBarPrefab; // Префаб плашки
+    //private HealthBar healthBarInstance;
+
+    
 
     protected virtual void Awake()
     {
-        // Автопризначення компонентів
         if (NavMeshAgent == null)
             NavMeshAgent = GetComponent<NavMeshAgent>();
 
         if (animator == null)
             animator = GetComponent<Animator>();
+
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+        }
     }
 
     protected virtual void Start()
     {
+        PlaySound(spawnSound);
+
         NavMeshHit hit;
         if (NavMesh.SamplePosition(transform.position, out hit, 2f, NavMesh.AllAreas))
         {
@@ -40,6 +64,7 @@ public class EnemyBaseControler : MonoBehaviour
             NavMeshAgent.SetDestination(targetPosition);
             NavMeshAgent.avoidancePriority = Random.Range(1, 100);
         }
+
     }
 
     protected virtual void Update()
@@ -63,6 +88,10 @@ public class EnemyBaseControler : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         HP -= damage;
+
+
+        PlaySound(hurtSound);
+
         if (HP <= 0)
         {
             Die();
@@ -73,7 +102,8 @@ public class EnemyBaseControler : MonoBehaviour
     {
         if (target != null)
         {
-            //target.GetComponent<Health>().TakeDamage(Damage);
+
+            PlaySound(attackSound);
         }
     }
 
@@ -86,11 +116,25 @@ public class EnemyBaseControler : MonoBehaviour
             animator.SetTrigger("Die");
         }
 
+        PlaySound(deathSound);
+
+
         Destroy(gameObject, 4f);
     }
 
     protected virtual void EnemySurvived()
     {
         Destroy(gameObject);
+    }
+
+    protected void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+
+            audioSource.Stop();
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
     }
 }
