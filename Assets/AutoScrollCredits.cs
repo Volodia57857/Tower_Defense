@@ -6,12 +6,11 @@ public class AutoScrollCredits : MonoBehaviour
     public GameObject CreditPanel;
     public float speed = 20f;
     public RectTransform viewport;
+    public RectTransform content;
 
-    private RectTransform content;
-
-    void Start()
+    void OnEnable()
     {
-        content = GetComponent<RectTransform>();
+        content.anchoredPosition = new Vector2(0, 0);
     }
 
     void Update()
@@ -20,8 +19,11 @@ public class AutoScrollCredits : MonoBehaviour
 
         if (content.anchoredPosition.y >= content.sizeDelta.y - viewport.rect.height)
         {
-            settingPanel.SetActive(true);
-            CreditPanel.SetActive(false);
+            if (CreditPanel.activeSelf)
+            {
+                settingPanel.SetActive(true);
+                CreditPanel.SetActive(false);
+            }
         }
     }
 }
