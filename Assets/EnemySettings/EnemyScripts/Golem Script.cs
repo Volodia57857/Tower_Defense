@@ -5,9 +5,9 @@ public class GolemScript : EnemyBaseControler
     protected override void Awake()
     {
         base.Awake();
-        HP = 25;
-        Damage = 8;
-        PriceForKill = 10;
+        HP = 50;
+        Damage = 13;
+        PriceForKill = 20;
     }
 
     protected override void Die()

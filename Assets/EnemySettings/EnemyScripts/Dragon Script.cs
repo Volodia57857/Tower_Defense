@@ -6,9 +6,9 @@ public class DragonScript : EnemyBaseControler
     {
         base.Awake();
 
-        HP = 100;
-        Damage = 20;
-        PriceForKill = 50;
+        HP = 250;
+        Damage = 50;
+        PriceForKill = 100;
     }
 
     protected override void Die()

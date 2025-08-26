@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class EnemyBaseControler : MonoBehaviour
 {
@@ -23,11 +26,12 @@ public class EnemyBaseControler : MonoBehaviour
     protected Vector3 targetPosition;
     protected float stopDistance = 1f;
 
-    //[Header("HealthBar")]
-    //[SerializeField] private HealthBar healthBarPrefab; // Префаб плашки
-    //private HealthBar healthBarInstance;
+    [Header("HealthBar")]
+    [SerializeField] private UnityEngine.UI.Slider HP_slider;
+    [SerializeField] private Canvas HP_Canvas;
 
-    
+
+
 
     protected virtual void Awake()
     {
@@ -44,6 +48,8 @@ public class EnemyBaseControler : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.playOnAwake = false;
         }
+        HP_Canvas = transform.Find("Canvas").GetComponent<Canvas>();
+        HP_slider = HP_Canvas.transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();
     }
 
     protected virtual void Start()
@@ -65,6 +71,11 @@ public class EnemyBaseControler : MonoBehaviour
             NavMeshAgent.avoidancePriority = Random.Range(1, 100);
         }
 
+      
+        HP_slider.maxValue = HP;
+        HP_slider.value = HP;
+        HP_Canvas.transform.LookAt(Camera.main.transform);
+
     }
 
     protected virtual void Update()
@@ -76,19 +87,21 @@ public class EnemyBaseControler : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, NavMeshAgent.angularSpeed * Time.deltaTime);
         }
 
+        HP_Canvas.transform.LookAt(Camera.main.transform);
+
         if (NavMeshAgent.isOnNavMesh &&
             !NavMeshAgent.pathPending &&
             NavMeshAgent.hasPath &&
             NavMeshAgent.remainingDistance <= stopDistance)
         {
             EnemySurvived();
-        }
+        }   
     }
 
     public virtual void TakeDamage(int damage)
     {
         HP -= damage;
-
+        HP_slider.value = HP;
 
         PlaySound(hurtSound);
 

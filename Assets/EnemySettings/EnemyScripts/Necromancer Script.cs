@@ -3,7 +3,7 @@
 public class NecromancerScript : EnemyBaseControler
 {
     [Header("Necromancer Settings")]
-    [SerializeField] private float summonCooldown = 10f; 
+    [SerializeField] private float summonCooldown = 13f; 
     [SerializeField] private GameObject minionPrefab;    
     [SerializeField] private Transform summonPoint;
     [SerializeField] private ParticleSystem castEffect;
