@@ -1,33 +1,34 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyBaseControler : MonoBehaviour
 {
     [Header("Enemy Settings")]
-    public NavMeshAgent agent;
-    public int HP = 50;
-    public int Damage = 10;
-    public int PriceForKill = 20;
-    public Animator animator;
+    [SerializeField] protected NavMeshAgent NavMeshAgent;
+    [SerializeField] protected int HP;
+    [SerializeField] protected int Damage;
+    [SerializeField] protected int PriceForKill;
+    [SerializeField] protected Animator animator;
 
     [Header("Audio Clips")]
-    public AudioClip spawnSound;
-    public AudioClip attackSound;
-    public AudioClip hurtSound;
-    public AudioClip deathSound;
+    [SerializeField] protected AudioClip spawnSound;
+    [SerializeField] protected AudioClip attackSound;
+    [SerializeField] protected AudioClip hurtSound;
+    [SerializeField] protected AudioClip deathSound;
 
     protected AudioSource audioSource;
 
     [Header("Target")]
-    public Transform targetObject;
+    [SerializeField] protected Transform targetObject;
     protected Vector3 targetPosition;
 
     protected float stopDistance = 1f;
 
     protected virtual void Awake()
     {
-        if (agent == null)
-            agent = GetComponent<NavMeshAgent>();
+        if (NavMeshAgent == null)
+            NavMeshAgent = GetComponent<NavMeshAgent>();
+
         if (animator == null)
             animator = GetComponent<Animator>();
 
@@ -38,7 +39,7 @@ public class EnemyBaseControler : MonoBehaviour
             audioSource.playOnAwake = false;
         }
 
-        // Регистрируем у GlobalMusicManager для SFX
+       
         GlobalMusicManager.instance?.RegisterSFXSource(audioSource);
     }
 
@@ -46,29 +47,38 @@ public class EnemyBaseControler : MonoBehaviour
     {
         PlaySound(spawnSound);
 
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(transform.position, out hit, 2f, NavMesh.AllAreas))
+        {
+            transform.position = hit.position;
+        }
+
         if (targetObject != null)
             targetPosition = targetObject.position;
 
-        if (agent != null && agent.isOnNavMesh)
+        if (NavMeshAgent != null && NavMeshAgent.isOnNavMesh)
         {
-            agent.SetDestination(targetPosition);
-            agent.avoidancePriority = Random.Range(1, 100);
+            NavMeshAgent.SetDestination(targetPosition);
+            NavMeshAgent.avoidancePriority = Random.Range(1, 100);
         }
     }
 
     protected virtual void Update()
     {
-        if (agent == null) return;
-
-        Vector3 dir = agent.velocity.normalized;
-        if (dir != Vector3.zero)
+        Vector3 direction = NavMeshAgent.velocity.normalized;
+        if (direction != Vector3.zero)
         {
-            Quaternion rot = Quaternion.LookRotation(dir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, agent.angularSpeed * Time.deltaTime);
+            Quaternion toRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, NavMeshAgent.angularSpeed * Time.deltaTime);
         }
 
-        if (agent.isOnNavMesh && !agent.pathPending && agent.hasPath && agent.remainingDistance <= stopDistance)
+        if (NavMeshAgent.isOnNavMesh &&
+            !NavMeshAgent.pathPending &&
+            NavMeshAgent.hasPath &&
+            NavMeshAgent.remainingDistance <= stopDistance)
+        {
             EnemySurvived();
+        }
     }
 
     public virtual void TakeDamage(int damage)
@@ -83,14 +93,22 @@ public class EnemyBaseControler : MonoBehaviour
     public virtual void Attack(GameObject target)
     {
         if (target != null)
+        {
             PlaySound(attackSound);
+        }
     }
 
     protected virtual void Die()
     {
-        if (agent != null) agent.isStopped = true;
-        if (animator != null) animator.SetTrigger("Die");
+        if (NavMeshAgent != null) NavMeshAgent.isStopped = true;
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Die");
+        }
+
         PlaySound(deathSound);
+
         Destroy(gameObject, 4f);
     }
 
@@ -111,7 +129,7 @@ public class EnemyBaseControler : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        // Убираем из списка SFX при уничтожении
+        
         GlobalMusicManager.instance?.UnregisterSFXSource(audioSource);
     }
 }
