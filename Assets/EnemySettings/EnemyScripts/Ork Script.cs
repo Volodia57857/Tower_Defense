@@ -1,13 +1,14 @@
 using UnityEngine;
-
 public class OrkScript : EnemyBaseControler
 {
     protected override void Awake()
     {
         base.Awake();
-        HP = 35;
-        Damage = 12;
-        PriceForKill = 30;
+
+      
+        HP = 120;
+        Damage = 30;
+        PriceForKill = 50;
     }
 
     protected override void Die()
