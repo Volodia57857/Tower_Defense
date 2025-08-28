@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GlobalMusicManager : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class GlobalMusicManager : MonoBehaviour
     [Header("UI Sliders")]
     public Slider menuVolumeSlider;
     public Slider pauseVolumeSlider;
+    public Slider sfxVolumeSlider; // новый слайдер для SFX
+
+    [Header("SFX Settings")]
+    [Range(0f, 1f)]
+    public float sfxVolume = 1f;
+    private List<AudioSource> sfxSources = new List<AudioSource>();
 
     private int currentTrackIndex = 0;
     private bool inLevelPlaylist = false;
@@ -40,6 +47,7 @@ public class GlobalMusicManager : MonoBehaviour
 
         SetupSlider(menuVolumeSlider);
         SetupSlider(pauseVolumeSlider);
+        SetupSFXSlider(sfxVolumeSlider);
 
         PlayMenuMusic();
     }
@@ -53,17 +61,55 @@ public class GlobalMusicManager : MonoBehaviour
         }
     }
 
+    private void SetupSFXSlider(Slider slider)
+    {
+        if (slider != null)
+        {
+            slider.value = sfxVolume;
+            slider.onValueChanged.AddListener(SetSFXVolume);
+        }
+    }
+
     public void SetVolume(float value)
     {
         audioSource.volume = value;
         PlayerPrefs.SetFloat("MusicVolume", value);
 
         if (menuVolumeSlider != null && menuVolumeSlider.value != value)
-            menuVolumeSlider.value = value;
+            menuVolumeSlider.SetValueWithoutNotify(value);
         if (pauseVolumeSlider != null && pauseVolumeSlider.value != value)
-            pauseVolumeSlider.value = value;
+            pauseVolumeSlider.SetValueWithoutNotify(value);
     }
 
+    public void SetSFXVolume(float value)
+    {
+        sfxVolume = value;
+        foreach (var s in sfxSources)
+        {
+            if (s != null) s.volume = sfxVolume;
+        }
+
+        if (sfxVolumeSlider != null && sfxVolumeSlider.value != value)
+            sfxVolumeSlider.SetValueWithoutNotify(value);
+    }
+
+    // Регистрация всех AudioSource с эффектами
+    public void RegisterSFXSource(AudioSource source)
+    {
+        if (!sfxSources.Contains(source))
+        {
+            source.volume = sfxVolume;
+            sfxSources.Add(source);
+        }
+    }
+
+    public void UnregisterSFXSource(AudioSource source)
+    {
+        if (sfxSources.Contains(source))
+            sfxSources.Remove(source);
+    }
+
+    // ----------------- Музыкальные методы (точно как у тебя) -----------------
     public void PlayMenuMusic()
     {
         StopAllCoroutines();
