@@ -6,7 +6,7 @@ public class SkeletonScript : EnemyBaseControler
     {
         base.Awake();
 
-        HP = 10;
+        HP = 5;
         Damage = 5;
         PriceForKill = 5;
     }
