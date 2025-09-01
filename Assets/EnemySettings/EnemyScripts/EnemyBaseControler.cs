@@ -1,8 +1,5 @@
-﻿using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class EnemyBaseControler : MonoBehaviour
 {
@@ -24,7 +21,9 @@ public class EnemyBaseControler : MonoBehaviour
     [Header("Target")]
     [SerializeField] protected Transform targetObject;
     protected Vector3 targetPosition;
+
     protected float stopDistance = 1f;
+
 
     [Header("Attack Settings")]
     [SerializeField] protected float attackCooldown = 1.5f; 
@@ -34,20 +33,27 @@ public class EnemyBaseControler : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Slider HP_slider;
     [SerializeField] private Canvas HP_Canvas;
 
+
+
     protected virtual void Awake()
     {
         if (NavMeshAgent == null)
             NavMeshAgent = GetComponent<NavMeshAgent>();
         if (animator == null)
             animator = GetComponent<Animator>();
+
+
+
+
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.playOnAwake = false;
         }
-        HP_Canvas = transform.Find("Canvas").GetComponent<Canvas>();
-        HP_slider = HP_Canvas.transform.Find("Slider").GetComponent<UnityEngine.UI.Slider>();
+
+       
+        GlobalMusicManager.instance?.RegisterSFXSource(audioSource);
     }
     protected virtual void Start()
     {
@@ -65,6 +71,7 @@ public class EnemyBaseControler : MonoBehaviour
             NavMeshAgent.SetDestination(targetPosition);
             NavMeshAgent.avoidancePriority = Random.Range(1, 100);
         }
+
         HP_slider.maxValue = HP;
         HP_slider.value = HP;
         HP_Canvas.transform.LookAt(Camera.main.transform);
@@ -77,26 +84,26 @@ public class EnemyBaseControler : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, NavMeshAgent.angularSpeed * Time.deltaTime);
         }
+
         HP_Canvas.transform.LookAt(Camera.main.transform);
+
+
+
         if (NavMeshAgent.isOnNavMesh &&
             !NavMeshAgent.pathPending &&
             NavMeshAgent.hasPath &&
             NavMeshAgent.remainingDistance <= stopDistance)
         {
             EnemySurvived();
-        }   
+        }
     }
     public virtual void TakeDamage(int damage)
     {
         HP -= damage;
-        HP_slider.value = HP;
-
         PlaySound(hurtSound);
 
         if (HP <= 0)
-        {
             Die();
-        }
     }
     protected virtual void TryAttack()
     {
@@ -130,6 +137,9 @@ public class EnemyBaseControler : MonoBehaviour
         }
         PlaySound(deathSound);
         WaveManager.aliveEnemies--;
+
+
+
         Destroy(gameObject, 4f);
     }
     protected virtual void EnemySurvived()
@@ -145,5 +155,11 @@ public class EnemyBaseControler : MonoBehaviour
             audioSource.clip = clip;
             audioSource.Play();
         }
+    }
+
+    protected virtual void OnDestroy()
+    {
+        
+        GlobalMusicManager.instance?.UnregisterSFXSource(audioSource);
     }
 }
