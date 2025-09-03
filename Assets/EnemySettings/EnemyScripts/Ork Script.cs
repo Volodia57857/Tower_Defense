@@ -3,7 +3,7 @@ public class OrkScript : EnemyBaseControler
 {
     protected override void Awake()
     {
-        base.Awake()
+        base.Awake();
         HP = 120;
         Damage = 30;
         PriceForKill = 50;
