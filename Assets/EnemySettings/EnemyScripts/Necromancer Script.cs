@@ -3,7 +3,7 @@
 public class NecromancerScript : EnemyBaseControler
 {
     [Header("Necromancer Settings")]
-    [SerializeField] private float summonCooldown = 13f; 
+    [SerializeField] private float summonCooldown = 25f; 
     [SerializeField] private GameObject minionPrefab;    
     [SerializeField] private Transform summonPoint;
     [SerializeField] private ParticleSystem castEffect;
@@ -75,11 +75,12 @@ public class NecromancerScript : EnemyBaseControler
 
     public void SummonMinions()
     {
-        int minionCount = 3;
+        int minionCount = 2;
         float radius = 3.5f;
 
         for (int i = 0; i < minionCount; i++)
         {
+            WaveManager.aliveEnemies++;
             float angle = i * Mathf.PI * 2f / minionCount;
             Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
 

@@ -1,0 +1,252 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+
+public class WaveManager : MonoBehaviour
+{
+    [SerializeField] private List<SpawnerWaves> spawners; 
+    public static int aliveEnemies = 0;
+
+    public void StartLevel(int level)
+    {
+        if (level == 1) StartCoroutine(Level1());
+        else if (level == 2) StartCoroutine(Level2());
+        else if (level == 3) StartCoroutine(Level3());
+        else if (level == 4) StartCoroutine(Level4());
+        else if (level == 5) StartCoroutine(Level5());
+    }
+
+    IEnumerator Level1()
+    {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 2f, spawners[1].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0);yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(5, 2f, spawners[1].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2.5f, spawners[0].Golem));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 2.5f, spawners[1].Golem));
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(3, 2f, spawners[1].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(3, 2f, spawners[1].Ghool));
+        yield return new WaitForSeconds(8f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2.5f, spawners[0].Golem));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 2.5f, spawners[1].Golem));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 2.5f, spawners[1].Golem));
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(3, 2f, spawners[1].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 2.5f, spawners[1].Golem));
+        yield return new WaitForSeconds(7f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(3, 2f, spawners[1].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].OrkBerserk));
+        StartCoroutine(spawners[1].SpawnEnemies(4, 2f, spawners[1].Skeleton));
+    }
+    IEnumerator Level2()
+    {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(6, 1.8f, spawners[0].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 4f, spawners[0].Golem));
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 3f, spawners[1].Golem));
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 2f, spawners[0].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 3f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(spawners[0].SpawnEnemies(4, 2f, spawners[0].Ghool));     
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 3f, spawners[0].Golem));
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(spawners[0].SpawnEnemies(4, 2f, spawners[0].Ghool));       
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 2f, spawners[0].Skeleton));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(5.5f);
+        StartCoroutine(spawners[0].SpawnEnemies(4, 2f, spawners[0].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 1.8f, spawners[0].Skeleton));
+        yield return new WaitForSeconds(7f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 3.2f, spawners[0].Golem));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].OrkBerserk));
+    }
+    IEnumerator Level3()
+    {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(7, 2f, spawners[0].Skeleton));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 1.7f, spawners[0].Skeleton));
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Skeleton));
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2.5f, spawners[0].Golem));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(4, 3f, spawners[0].Golem));
+        yield return new WaitForSeconds(12f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(7, 1.7f, spawners[0].Ghool));
+        yield return new WaitForSeconds(10f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 3f, spawners[0].Golem));
+        yield return new WaitForSeconds(11f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 2f, spawners[0].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 1.3f, spawners[0].Ghool));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 2.5f, spawners[0].Golem));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 1.8f, spawners[0].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 4f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(11f);
+        StartCoroutine(spawners[0].SpawnEnemies(10, 2f, spawners[0].Skeleton));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 1.8f, spawners[0].Ghool));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2.5f, spawners[0].Golem));
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 3.4f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 4f, spawners[0].OrkBerserk));
+    }
+    IEnumerator Level4()
+    {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(4, 2f, spawners[0].Skeleton_green));
+        StartCoroutine(spawners[1].SpawnEnemies(4, 2f, spawners[0].Skeleton_green));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 2.5f, spawners[1].Golem));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 2.5f, spawners[1].Golem));
+        yield return new WaitForSeconds(7f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(3, 2f, spawners[0].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(7f);
+        StartCoroutine(spawners[1].SpawnEnemies(5, 1.7f, spawners[0].Skeleton_green));
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2.5f, spawners[0].Golem));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(7, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(3, 3f, spawners[0].Golem));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[1].SpawnEnemies(2, 2.5f, spawners[0].Golem));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 2.5f, spawners[0].Golem));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(4, 1.7f, spawners[0].Skeleton_green));
+        StartCoroutine(spawners[1].SpawnEnemies(4, 1.7f, spawners[0].Skeleton_green));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2.5f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 2.5f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(6, 2f, spawners[0].Skeleton_green));
+        StartCoroutine(spawners[1].SpawnEnemies(6, 2f, spawners[0].Skeleton_green));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 4f, spawners[0].OrkBerserk));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 4f, spawners[0].OrkBerserk));
+        yield return new WaitForSeconds(10f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 5f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 5f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(13f);
+        StartCoroutine(spawners[1].SpawnEnemies(2, 3f, spawners[0].Golem));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 3f, spawners[0].Golem));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2.5f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 2.5f, spawners[0].Necromancer));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 1.8f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(5, 1.8f, spawners[0].Ghool));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 4f, spawners[0].OrkBerserk));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 4f, spawners[0].OrkBerserk));
+    }
+    IEnumerator Level5()
+    {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(4, 2f, spawners[0].Skeleton_blue));
+        StartCoroutine(spawners[1].SpawnEnemies(4, 2f, spawners[0].Skeleton_blue));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 3f, spawners[0].Golem));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 3f, spawners[1].Golem));
+        yield return new WaitForSeconds(7f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(5, 2f, spawners[1].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 3f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 3f, spawners[1].Necromancer));
+        yield return new WaitForSeconds(3.4f);
+        StartCoroutine(spawners[1].SpawnEnemies(5, 2f, spawners[1].Skeleton_blue));
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2.5f, spawners[0].Golem));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(5, 2f, spawners[0].Skeleton_blue));
+        StartCoroutine(spawners[1].SpawnEnemies(5, 2f, spawners[1].Skeleton_blue));
+        yield return new WaitForSeconds(8f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 3f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 3f, spawners[1].Necromancer));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 2.5f, spawners[1].Golem));
+        yield return new WaitForSeconds(7f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 2.5f, spawners[1].Golem));
+        yield return new WaitForSeconds(7f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Ghool));
+        StartCoroutine(spawners[1].SpawnEnemies(3, 2f, spawners[1].Ghool));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 4f, spawners[0].OrkBerserk));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 4f, spawners[1].OrkBerserk));
+        yield return new WaitForSeconds(8f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 2.5f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 2.5f, spawners[1].Necromancer));
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(spawners[0].SpawnEnemies(2, 3f, spawners[0].Golem));
+        StartCoroutine(spawners[1].SpawnEnemies(2, 3f, spawners[1].Golem));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 4f, spawners[0].OrkBerserk));
+        StartCoroutine(spawners[1].SpawnEnemies(3, 3f, spawners[1].Golem));
+        yield return new WaitForSeconds(9f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 3f, spawners[0].Necromancer));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 3f, spawners[1].Necromancer));
+        yield return new WaitForSeconds(7f);
+        StartCoroutine(spawners[0].SpawnEnemies(3, 3f, spawners[0].Golem));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 4f, spawners[1].OrkBerserk));
+        yield return new WaitForSeconds(10f);
+        StartCoroutine(spawners[1].SpawnEnemies(3, 2f, spawners[1].Skeleton_blue));
+        StartCoroutine(spawners[0].SpawnEnemies(3, 2f, spawners[0].Skeleton_blue));
+        yield return new WaitUntil(() => aliveEnemies == 0); yield return new WaitForSeconds(1f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 3f, spawners[0].OrkBerserk));
+        StartCoroutine(spawners[1].SpawnEnemies(1, 3f, spawners[1].OrkBerserk));
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(spawners[0].SpawnEnemies(4, 2f, spawners[0].Skeleton_blue));
+        StartCoroutine(spawners[1].SpawnEnemies(4, 2f, spawners[1].Skeleton_blue));
+        yield return new WaitForSeconds(10f);
+        StartCoroutine(spawners[0].SpawnEnemies(1, 4f, spawners[0].Dragon));
+    }
+}
