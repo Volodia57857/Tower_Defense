@@ -5707,6 +5707,7 @@ MonoBehaviour:
   hurtSound: {fileID: 0}
   deathSound: {fileID: 0}
   targetObject: {fileID: 0}
+  attackCooldown: 1.5
   HP_slider: {fileID: 0}
   HP_Canvas: {fileID: 0}
 --- !u!114 &8353677768093800106
@@ -5731,8 +5732,9 @@ MonoBehaviour:
   hurtSound: {fileID: 0}
   deathSound: {fileID: 0}
   targetObject: {fileID: 0}
+  attackCooldown: 1.5
   HP_slider: {fileID: 0}
-  HP_Canvas: {fileID: 0}
+  HP_Canvas: {fileID: 1198641220899741891, guid: b25f832f772b59a4886fae7ba78f0def, type: 3}
 --- !u!195 &4357902500654662182
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyBaseControler : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class EnemyBaseControler : MonoBehaviour
     protected float lastAttackTime;
 
     [Header("HealthBar")]
-    [SerializeField] private UnityEngine.UI.Slider HP_slider;
+    [SerializeField] private Slider HP_slider;
     [SerializeField] private Canvas HP_Canvas;
 
 
@@ -42,7 +43,11 @@ public class EnemyBaseControler : MonoBehaviour
         if (animator == null)
             animator = GetComponent<Animator>();
 
+        if (HP_slider == null)
+            HP_slider = GetComponentInChildren<Slider>(true);
 
+        if (HP_Canvas == null)
+            HP_Canvas = GetComponentInChildren<Canvas>(true);
 
 
         audioSource = GetComponent<AudioSource>();
@@ -94,7 +99,8 @@ public class EnemyBaseControler : MonoBehaviour
             NavMeshAgent.hasPath &&
             NavMeshAgent.remainingDistance <= stopDistance)
         {
-            EnemySurvived();
+            //EnemySurvived();
+            Die();
         }
     }
     public virtual void TakeDamage(int damage)
